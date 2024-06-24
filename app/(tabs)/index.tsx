@@ -1,11 +1,26 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, NativeModules, NativeEventEmitter, Button } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import {
+  MetaMapRNSdk,
+} from 'react-native-expo-metamap-sdk';
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
+  useEffect(() => {
+    const MetaMapVerifyResult = new NativeEventEmitter(NativeModules.MetaMapRNSdk)
+    MetaMapVerifyResult.addListener('verificationSuccess', (data: any) => console.log(data))
+    MetaMapVerifyResult.addListener('verificationCanceled', (data: any) => console.log(data))
+ })
+ const handleMetaMapClickButton = () => {
+
+         //set 3 params clientId (cant be null), flowId, metadata
+      var metaData = { param1: "value1", param2: "value2" }
+         MetaMapRNSdk.showFlow("YOUR_CLIENT_ID", "YOUR_FLOW_ID", metaData);
+   }
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -19,6 +34,7 @@ export default function HomeScreen() {
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
+      <Button onPress = {() => handleMetaMapClickButton()}  title="Click here"/>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
