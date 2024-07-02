@@ -4,9 +4,8 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import {
-  MetaMapRNSdk,
-} from 'react-native-expo-metamap-sdk';
+// ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
+import { MetaMapRNSdk } from 'react-native-expo-metamap-sdk';
 import { useEffect } from 'react';
 
 export default function HomeScreen() {
